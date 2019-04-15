@@ -1,0 +1,15 @@
+
+spring:
+  application:
+    name: mybatis-demo
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.18.139:3306/my_test?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowMultiQueries=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: fdauto
+
+mybatis:
+  mapper-locations: classpath:mapper/**/*Mapper.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

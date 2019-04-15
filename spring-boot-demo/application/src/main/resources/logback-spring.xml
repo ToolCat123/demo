@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" debug="true">
+    <contextName>logback</contextName>
+
+    <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter"/>
+    <conversionRule conversionWord="wex"
+                    converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter"/>
+    <conversionRule conversionWord="wEx"
+                    converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter"/>
+
+    <property name="contextName" value="log-dev"/>
+    <property name="logPath" value="${user.dir}/logs"/>
+    <property name="LOG_HOME" value="${logPath}/${contextName}"/>
+    <property name="MDC_LOG_PATTERN"
+              value="IP:%X{req.remoteHost} -url:%X{req.requestURI} -Method:%X{req.method} -QueryString:%X{req.queryString} -device:%X{req.userAgent} -ips:%X{req.xForwardedFor} - %m%n "/>
+    <property name="LOG_PATTERN"
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} %clr(%5p) %clr([%9.9t]){magenta} %clr(%-65.65logger{64}){cyan} : %m%n%wEx"/>
+    <!-- %clr(${PID:- }){magenta} [%method,%line]-->
+
+    <appender name="INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 按天回滚 daily -->
+            <fileNamePattern>${LOG_HOME}/${contextName}-info.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!-- 日志最大的历史 30天 -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <!--<target>System.out</target>-->
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+            <charset class="java.nio.charset.Charset">UTF-8</charset>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印错误日志 -->
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <appender name="WARN" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${LOG_HOME}/${contextName}-warn.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <!--<target>System.out</target>-->
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${LOG_PATTERN}</pattern>
+            <charset class="java.nio.charset.Charset">UTF-8</charset>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印错误日志 -->
+            <level>WARN</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <appender name="ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${LOG_HOME}/${contextName}-error.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <!--<target>System.out</target>-->
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${LOG_PATTERN}</pattern>
+            <charset class="java.nio.charset.Charset">UTF-8</charset>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印错误日志 -->
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${LOG_PATTERN}</pattern>
+            <charset class="java.nio.charset.Charset">UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <logger name="org.springframework" level="INFO"/>
+    <!--日志打印的包的范围，及分类日志文件存储 -->
+    <!--<logger name="com.toolcat.application" level="DEBUG" additivity="false">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="ERROR"/>
+        <appender-ref ref="WARN"/>
+        <appender-ref ref="INFO" />
+    </logger>-->
+
+    <root level="INFO" additivity="false">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="ERROR"/>
+    </root>
+
+</configuration>

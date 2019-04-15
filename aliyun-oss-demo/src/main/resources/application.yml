@@ -1,0 +1,11 @@
+server:
+  port: 80
+
+# oss相关配置
+aliyun:
+  oss:
+    enabled: true
+    endpoint: https://oss-cn-beijing.aliyuncs.com
+    accessKeyId: xxxxxxxxxxx
+    accessKeySecret: xxxxxxxxxxx
+    bucketName: toolcat123

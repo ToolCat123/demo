@@ -1,0 +1,75 @@
+server:
+  port: 80
+
+logging:
+  config: classpath:logback-spring.xml
+
+spring:
+  application:
+    name: application
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  datasource:
+    druid:
+      url: jdbc:mysql://192.168.80.128:3307/demo?autoReconnect=true&failOverReadOnly=false&allowMultiQueries=true&useSSL=false
+      username: root
+      password: 123456
+      # 配置初始化大小（默认0）、最小、最大（默认8）
+      initial-size: 1
+      min-idle: 1
+      max-active: 20
+      # 配置获取连接等待超时的时间
+      max-wait: 60000
+      # 是否缓存preparedStatement，也就是PSCache。PSCache对支持游标的数据库性能提升巨大。 默认为false
+      pool-prepared-statements: true
+      # 要启用PSCache，必须配置大于0，当大于0时，poolPreparedStatements自动触发修改为true。
+      max-open-prepared-statements: 20
+      # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      time-between-eviction-runs-millis: 60000
+      # 配置一个连接在池中最小和最大生存的时间，单位是毫秒
+      min-evictable-idle-time-millis: 300000
+      max-evictable-idle-time-millis: 900000
+
+      # 用来检测连接是否有效的sql，要求是一个查询语句，常用select 'x'。
+      # 如果validationQuery为null，testOnBorrow、testOnReturn、testWhileIdle都不会起作用。
+      validation-query: SELECT 1
+      # 申请连接时执行validationQuery检测连接是否有效 默认为true
+      test-on-borrow: true
+      # 归还连接时执行validationQuery检测连接是否有效 默认为false
+      test-on-return: false
+      # 申请连接的时候检测，如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效。
+      test-while-idle: true
+  servlet:
+    # 默认
+    multipart:
+      enabled: true
+      max-request-size: 10MB
+      max-file-size: 1MB
+
+  mail:
+    host: smtp.qq.com
+    port: 465
+    # 587会过滤垃圾邮件
+    #    port: 587
+    username: 1019859950@qq.com
+    password: iykhnqlxnzbhbbfc
+    properties:
+      mail:
+        debug: true
+        smtp:
+          auth: true
+          ssl:
+            enable: true
+            # 配合587端口
+#          starttls:
+#            enable: true
+#            required: true
+
+
+mybatis:
+  mapper-locations: classpath:com/toolcat/application/mapper/*Mapper.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+

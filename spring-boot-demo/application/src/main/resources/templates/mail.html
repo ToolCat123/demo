@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>测试邮件</title>
+</head>
+<body>
+<h2>恭喜 <span th:text="${name}"></span> 获得以下奖品：</h2>
+<table border="1">
+    <tr>
+        <td>奖品一</td>
+        <td th:text="${prize-1}"></td>
+    </tr>
+    <tr>
+        <td>奖品二</td>
+        <td th:text="${prize-2}"></td>
+    </tr>
+</table>
+
+<h3>🐷请于三个工作日内领取奖品,逾期视为自动放弃🐷</h3>
+<h3>请联系QQ:🐷🐷🐷🐷🐷🐷🐷🐷 领取奖品</h3>
+</body>
+</html>

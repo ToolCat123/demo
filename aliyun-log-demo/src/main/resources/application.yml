@@ -1,0 +1,12 @@
+server:
+  port: 80
+
+# log相关配置
+aliyun:
+  log:
+    endpoint: cn-huhehaote.log.aliyuncs.com
+    accessKeyId: xxxxxxxxxx
+    accessKeySecret: xxxxxxxxxx
+    logStore: logstore
+    projectName: toolcat
+    topic: topic

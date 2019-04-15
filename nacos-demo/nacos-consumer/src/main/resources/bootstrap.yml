@@ -1,0 +1,19 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: nacos-consumer
+  cloud:
+    nacos:
+      config:
+        server-addr: 192.168.18.139:8848
+#        server-addr: 192.168.18.135:8848,192.168.18.135:8849,192.168.18.135:8850
+        file-extension: yml
+#        namespace: 6134098c-e0a9-413b-941b-99113260b64f
+#        group: DEFAULT_GROUP
+      discovery:
+        server-addr: 192.168.18.139:8848
+#        server-addr: 192.168.18.135:8848,192.168.18.135:8849,192.168.18.135:8850
+#        namespace: 6134098c-e0a9-413b-941b-99113260b64f
+#        group: DEFAULT_GROUP
