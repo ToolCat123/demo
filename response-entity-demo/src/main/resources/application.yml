@@ -1,0 +1,15 @@
+# Turn off the logs
+spring:
+  main:
+    banner-mode: off
+
+logging:
+  level:
+    org:
+      springframework:
+        boot: OFF
+    root: OFF
+
+#logging.level.org.springframework.boot=OFF
+#spring.main.banner-mode=OFF
+#logging.level.root=OFF
