@@ -12,6 +12,6 @@ public class HelloController {
     @GetMapping("/hello")
     public String hello() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return "client2" + authentication.getName() + Arrays.toString(authentication.getAuthorities().toArray());
+        return "client2" + ", username = " + authentication.getName() + ", authorities = " + Arrays.toString(authentication.getAuthorities().toArray());
     }
 }
