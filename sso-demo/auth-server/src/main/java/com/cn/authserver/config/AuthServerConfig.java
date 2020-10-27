@@ -26,12 +26,12 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.inMemory()
-                .withClient("test")
+                .withClient("client")
                 .secret(passwordEncoder.encode("123456"))
                 .autoApprove(true)
                 .redirectUris("http://127.0.0.1:8081/login", "http://127.0.0.1:8082/login")
-                .redirectUris("http://www.baidu.com")
-                .scopes("server")
+                .redirectUris("http://baidu.com")
+                .scopes("all")
                 .accessTokenValiditySeconds(7200)
                 .authorizedGrantTypes("authorization_code", "password", "client_credentials", "refresh_token", "implicit");
     }
