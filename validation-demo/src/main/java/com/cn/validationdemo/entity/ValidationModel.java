@@ -14,7 +14,7 @@ public class ValidationModel {
 
     @AssertFalse(message = "必须为false")
     private Boolean assertFalse;
-    @AssertFalse(message = "必须为true")
+    @AssertTrue(message = "必须为true")
     private Boolean assertTrue;
 
     @DecimalMax(value = "12.3", message = "小于等于{value}")

@@ -1,5 +1,6 @@
 package com.cn.validationdemo.entity;
 
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
