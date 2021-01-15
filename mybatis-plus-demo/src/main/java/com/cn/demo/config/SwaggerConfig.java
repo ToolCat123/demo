@@ -23,8 +23,8 @@ import java.util.ArrayList;
  */
 @Configuration
 @EnableSwagger2
-@EnableKnife4j
-@Import(BeanValidatorPluginsConfiguration.class)
+//@EnableKnife4j
+//@Import(BeanValidatorPluginsConfiguration.class)
 public class SwaggerConfig {
 
     @Bean

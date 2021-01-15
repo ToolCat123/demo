@@ -15,8 +15,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  */
 @Configuration
 @EnableWebSecurity //开启Spring Security
-//securedEnabled 拦截 @Secured
-//prePostEnabled 拦截 @PreAuthorize & @PostAuthorize(配合Spring EL表达式)
+/*
+securedEnabled 拦截 @Secured
+prePostEnabled 拦截 @PreAuthorize & @PostAuthorize(配合Spring EL表达式)
+*/
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
