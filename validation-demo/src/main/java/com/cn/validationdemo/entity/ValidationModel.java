@@ -59,7 +59,10 @@ public class ValidationModel {
     private String notBlank;
     @NotEmpty(message = "数组或集合不能为空")
     @Size(min = 1, max = 4, message = "数组或集合元素范围在{min}-{max}")
-    private List<Object> notEmpty;
+    private List<String> notEmptyList;
+    @NotEmpty(message = "数组或集合不能为空")
+    @Size(min = 1, max = 4, message = "数组或集合元素范围在{min}-{max}")
+    private String[] notEmptyArray;
 
     public String getPhoneNumber() {
         return phoneNumber;
@@ -213,11 +216,19 @@ public class ValidationModel {
         this.notBlank = notBlank;
     }
 
-    public List<Object> getNotEmpty() {
-        return notEmpty;
+    public List<String> getNotEmptyList() {
+        return notEmptyList;
     }
 
-    public void setNotEmpty(List<Object> notEmpty) {
-        this.notEmpty = notEmpty;
+    public void setNotEmptyList(List<String> notEmptyList) {
+        this.notEmptyList = notEmptyList;
+    }
+
+    public String[] getNotEmptyArray() {
+        return notEmptyArray;
+    }
+
+    public void setNotEmptyArray(String[] notEmptyArray) {
+        this.notEmptyArray = notEmptyArray;
     }
 }
