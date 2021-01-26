@@ -88,9 +88,9 @@ public class SmsServiceImpl implements SmsService {
             logger.info("短信发送成功 -> 发送模板:{}, 手机号:{}, 验证码:{}, 结果:{}", smsVO.getTemplate(), smsVO.getPhone(), smsVO.getCode(), response.getData());
             return true;
         } catch (Exception e) {
-            logger.info("短信发送成功 -> 发送模板:{}, 手机号:{}, 验证码:{}", smsVO.getTemplate(), smsVO.getPhone(), smsVO.getCode());
+            logger.info("短信发送失败 -> 发送模板:{}, 手机号:{}, 验证码:{}", smsVO.getTemplate(), smsVO.getPhone(), smsVO.getCode());
+            return false;
         }
-        return false;
     }
 
     /**
