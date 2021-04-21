@@ -1,4 +1,3 @@
-
 spring:
   application:
     name: mybatis-demo
@@ -13,3 +12,6 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+server:
+  port: 666

@@ -41,6 +41,7 @@ public interface UserMapStruct {
      * @param userDO 数据库实体
      * @return vo实体
      */
+    @Mapping(target = "name", source = "")
     UserVO doToVo(UserDO userDO);
 
     /**

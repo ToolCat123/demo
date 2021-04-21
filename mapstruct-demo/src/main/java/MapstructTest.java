@@ -20,7 +20,7 @@ public class MapstructTest {
         System.out.println("-----------------------------------------------------------------------------------------------------------------------------");
 
         // VO -> DO
-        UserVO userVO1 = new UserVO(1L, "张三", 18, "13166666666", "987654@qq.com", DateTime.now().toDate());
+        UserVO userVO1 = new UserVO(1L, "张三", 18, "13166666666", "987654@qq.com", DateTime.now().toDate(),"张三");
         System.out.println("userVO1 = " + userVO1);
         UserDO userDO1 = UserMapStruct.INSTANCE.voToDo(userVO1);
         System.out.println("userDO1 = " + userDO1);

@@ -24,4 +24,9 @@ public class UserVO implements Serializable {
     private String email;
     private Date createTime;
 
+    private String name;
+
+    public String getName() {
+        return nickname;
+    }
 }
