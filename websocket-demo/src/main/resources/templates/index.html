@@ -16,16 +16,17 @@
     单发消息 : [url=/api/ws/sendOne?message=单发消息内容&id=SessionID]
     <br>
     群发消息 : [url=/api/ws/sendAll?message=群发消息内容]
+    <br>
+    <button onclick="myOpen()">打开连接</button>    <button onclick="mySend()">发送消息</button>   <button onclick="myClose()">断开连接</button>
 </h4>
 
 
 <script type="text/javascript">
-    var socket;
+    let socket;
     if (typeof (WebSocket) == "undefined") {
         console.log("遗憾：您的浏览器不支持WebSocket");
     } else {
         console.log("恭喜：您的浏览器支持WebSocket");
-
         //实现化WebSocket对象
         //指定要连接的服务器地址与端口建立连接
         //注意ws、wss使用不同的端口。我使用自签名的证书测试，
@@ -49,7 +50,6 @@
         socket.onerror = function () {
             alert("Socket发生了错误");
         };
-
         //窗口关闭时，关闭连接
         window.unload = function () {
             socket.close();
