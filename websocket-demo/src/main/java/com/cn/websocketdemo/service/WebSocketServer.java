@@ -19,26 +19,25 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Component
 public class WebSocketServer {
 
+    private static Logger log = LoggerFactory.getLogger(WebSocketServer.class);
+    private static final AtomicInteger ONLINE_COUNT = new AtomicInteger(0);
+    private static CopyOnWriteArraySet<Session> SESSION_SET = new CopyOnWriteArraySet<>();
+
     @PostConstruct
     public void init() {
         System.out.println("websocket 加载");
     }
-
-    private static Logger log = LoggerFactory.getLogger(WebSocketServer.class);
-    private static final AtomicInteger OnlineCount = new AtomicInteger(0);
-    // concurrent包的线程安全Set，用来存放每个客户端对应的Session对象。
-    private static CopyOnWriteArraySet<Session> SessionSet = new CopyOnWriteArraySet<Session>();
-
 
     /**
      * 连接建立成功调用的方法
      */
     @OnOpen
     public void onOpen(Session session) {
-        SessionSet.add(session);
-        int cnt = OnlineCount.incrementAndGet(); // 在线数加1
+        SESSION_SET.add(session);
+        // 在线数加1
+        int cnt = ONLINE_COUNT.incrementAndGet();
         log.info("有连接加入，当前连接数为：{}", cnt);
-        SendMessage(session, "连接成功");
+        sendMessage(session, "连接成功");
     }
 
     /**
@@ -46,8 +45,8 @@ public class WebSocketServer {
      */
     @OnClose
     public void onClose(Session session) {
-        SessionSet.remove(session);
-        int cnt = OnlineCount.decrementAndGet();
+        SESSION_SET.remove(session);
+        int cnt = ONLINE_COUNT.decrementAndGet();
         log.info("有连接关闭，当前连接数为：{}", cnt);
     }
 
@@ -59,15 +58,12 @@ public class WebSocketServer {
     @OnMessage
     public void onMessage(String message, Session session) {
         log.info("来自客户端的消息：{}", message);
-        SendMessage(session, "收到消息，消息内容：" + message);
+        sendMessage(session, "收到消息，消息内容：" + message);
 
     }
 
     /**
      * 出现错误
-     *
-     * @param session
-     * @param error
      */
     @OnError
     public void onError(Session session, Throwable error) {
@@ -78,10 +74,9 @@ public class WebSocketServer {
     /**
      * 发送消息，实践表明，每次浏览器刷新，session会发生变化。
      *
-     * @param session
-     * @param message
+     * @param message 消息
      */
-    public static void SendMessage(Session session, String message) {
+    public static void sendMessage(Session session, String message) {
         try {
             session.getBasicRemote().sendText(String.format("%s (From Server，Session ID=%s)", message, session.getId()));
         } catch (IOException e) {
@@ -91,39 +86,36 @@ public class WebSocketServer {
     }
 
     /**
-     * 群发消息
-     *
-     * @param message
-     * @throws IOException
-     */
-    public static void BroadCastInfo(String message) throws IOException {
-        for (Session session : SessionSet) {
-            if (session.isOpen()) {
-                SendMessage(session, message);
-            }
-        }
-    }
-
-    /**
      * 指定Session发送消息
      *
-     * @param sessionId
-     * @param message
-     * @throws IOException
+     * @param sessionId 指定Session
+     * @param message   消息
      */
-    public static void SendMessage(String message, String sessionId) throws IOException {
+    public static void sendMessage(String message, String sessionId) throws IOException {
         Session session = null;
-        for (Session s : SessionSet) {
+        for (Session s : SESSION_SET) {
             if (s.getId().equals(sessionId)) {
                 session = s;
                 break;
             }
         }
         if (session != null) {
-            SendMessage(session, message);
+            sendMessage(session, message);
         } else {
             log.warn("没有找到你指定ID的会话：{}", sessionId);
         }
     }
 
+    /**
+     * 群发消息
+     *
+     * @param message 消息
+     */
+    public static void broadCastInfo(String message) throws IOException {
+        for (Session session : SESSION_SET) {
+            if (session.isOpen()) {
+                sendMessage(session, message);
+            }
+        }
+    }
 }

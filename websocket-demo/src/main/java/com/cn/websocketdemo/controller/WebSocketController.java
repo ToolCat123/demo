@@ -16,17 +16,15 @@ import java.io.IOException;
 @RequestMapping("/api/ws")
 public class WebSocketController {
 
-
     /**
      * 群发消息内容
      *
-     * @param message
-     * @return
+     * @param message 消息
      */
     @RequestMapping(value = "/sendAll", method = RequestMethod.GET)
-    public String sendAllMessage(@RequestParam(required = true) String message) {
+    public String sendAllMessage(@RequestParam String message) {
         try {
-            WebSocketServer.BroadCastInfo(message);
+            WebSocketServer.broadCastInfo(message);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -38,12 +36,11 @@ public class WebSocketController {
      *
      * @param message 消息内容
      * @param id      连接会话ID
-     * @return
      */
     @RequestMapping(value = "/sendOne", method = RequestMethod.GET)
-    public String sendOneMessage(@RequestParam(required = true) String message, @RequestParam(required = true) String id) {
+    public String sendOneMessage(@RequestParam String message, @RequestParam String id) {
         try {
-            WebSocketServer.SendMessage(message, id);
+            WebSocketServer.sendMessage(message, id);
         } catch (IOException e) {
             e.printStackTrace();
         }
