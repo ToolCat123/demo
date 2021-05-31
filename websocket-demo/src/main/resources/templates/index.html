@@ -17,7 +17,7 @@
     <br>
     群发消息 : [url=/api/ws/sendAll?message=群发消息内容]
     <br>
-    <button onclick="myOpen()">打开连接</button>    <button onclick="mySend()">发送消息</button>   <button onclick="myClose()">断开连接</button>
+    <button onclick="mySend()">发送消息</button>
 </h4>
 
 
@@ -32,7 +32,8 @@
         //注意ws、wss使用不同的端口。我使用自签名的证书测试，
         //无法使用wss，浏览器打开WebSocket时报错
         //ws对应http、wss对应https。
-        socket = new WebSocket("ws://localhost/ws/asset");
+        // socket = new WebSocket("ws://localhost/ws/asset");
+        socket = new WebSocket("ws://localhost:8899/ws/alarm/live");
         //连接打开事件
         socket.onopen = function () {
             console.log("Socket 已打开");
@@ -54,6 +55,9 @@
         window.unload = function () {
             socket.close();
         };
+        function mySend() {
+            socket.send(Date.now());
+        }
     }
 </script>
 
