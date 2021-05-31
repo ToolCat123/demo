@@ -32,8 +32,8 @@
         //注意ws、wss使用不同的端口。我使用自签名的证书测试，
         //无法使用wss，浏览器打开WebSocket时报错
         //ws对应http、wss对应https。
-        // socket = new WebSocket("ws://localhost/ws/asset");
-        socket = new WebSocket("ws://localhost:8899/ws/alarm/live");
+        socket = new WebSocket("ws://localhost/ws/asset");
+        // socket = new WebSocket("ws://localhost:8899/ws/alarm/live");
         //连接打开事件
         socket.onopen = function () {
             console.log("Socket 已打开");
